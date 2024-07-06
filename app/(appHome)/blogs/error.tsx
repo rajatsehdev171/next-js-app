@@ -3,7 +3,7 @@ import React from 'react';
 
 function Error(props:any) {
     return (
-        <main>Error...</main>
+        <div>Error...</div>
     );
 }
 

@@ -11,9 +11,9 @@ async function BlogIdPage({params}:any) {
     if(blogDetailObject){
     return (
         <>
-        <main>
+        <div>
             <div>
-            <h2>Blog Detail Page: <Link href="/blogs" style={{float:'right'}}>Go Back</Link></h2>
+            <h2>Blog Detail Page: <Link href="/blogs" className='text-blue-600 visited:text-purple-600 float-right'>Go Back</Link></h2>
             <section>
                 <div className="detail-container">
                     <h2>{blogDetailObject.title}</h2>
@@ -22,7 +22,7 @@ async function BlogIdPage({params}:any) {
                 </div>
             </section>
             </div>
-        </main>
+        </div>
         </>
     );
 }

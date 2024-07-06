@@ -1,12 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
 
 function About() {
-    return (
-        <main>
-        About Component
-        </main>
-    );
+  return <div>About Component</div>;
 }
 
 export default About;
