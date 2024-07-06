@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+//data source and (data cache in .next folder) 
+
+if we wish to cache a request in a component we must make that request before  the fetch request set to (cache:"no-store")
+
+or we can do is on top of page we can define export const fetchCache = "default-cache" i.e route segment config
+
+
+next js will not cache any request after any dynamic function is invoked like  cookies(), fetch()
+
