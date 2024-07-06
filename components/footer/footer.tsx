@@ -6,7 +6,7 @@ import "./footer.css";
 function Footer() {
     return (
         <footer>
-            Footer Component
+            © 2024 Your Company. All rights reserved.
         </footer>
     );
 }
