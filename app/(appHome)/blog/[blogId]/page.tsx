@@ -1,50 +1,69 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import NotFound from "./not-found";
 import { BlogItem } from "../interfaces";
 import { getFormattedDate } from "@/app/libs/date-format-util";
+import { useRouter } from "next/navigation";
+import BlogItems from "@/app/models/BlogItems";
 
-// server side rendered blogs example
-async function getBlogById(blogId:string) {
-  //process.env.URL this needs to be used for server side fetching only
-  console.log("checking process.env", process.env.URL);
-  const res = await fetch(process.env.URL + `/api/blog/${blogId} `, {
-    method: "GET",
-    next: { revalidate: 0 },
-  });
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-  const data = await res.json();
-  console.log("trying to check this ---",data.blog)
-  return  data.blog;
-}
-
-async function BlogIdPage({ params }: { params: {blogId:string}}){
+async function BlogIdPage({ params }: { params: {blogId:string}}) {
   // const blogs: any = await getData();
   // const blogDetailObject = blogs.find(
   //   (blog: any) => blog.id == parseInt(params.blogId)
   // );
-  const blogDetailObject:BlogItem = await getBlogById(params.blogId);
+  console.log("checking params---",params);
+  const router = useRouter();
+  const [blogItem,setBlogItem] = useState<BlogItem>()
 
-  if (blogDetailObject) {
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    const token = localStorage.getItem("token");
+    if (!email && !token) {
+      router.push("/signin");
+    }
+    const  getBlogById = async (blogId:string) => {
+      //process.env.URL this needs to be used for server side fetching only
+      console.log("checking process.env", process.env.URL);
+      const headers:any =  {
+        method: "GET",
+        next: { revalidate: 0 },
+        headers: {
+          "Content-Type":"application/json",
+          "Accept": "application/json",
+          "token":localStorage.getItem("token"),
+        }
+      };
+      const res = await fetch(`/api/blog/${blogId} `,{...headers});
+      // The return value is *not* serialized
+      // You can return Date, Map, Set, etc.
+    
+      if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch data");
+      }
+      const data = await res.json();
+      console.log("trying to check this ---",data.blog)
+      setBlogItem(data.blog);
+    }
+    getBlogById(params.blogId)
+  },[])
+
+  if (blogItem && blogItem.title) {
     return (
       <>
         <div>
           <div className="p-5 bg-blue-100 mt-3">
             <h3 className="text-blue-400 mb-4 text-sm font-bold">
-              {blogDetailObject.title}
+              {blogItem.title}
             </h3>
 
             <div className="bg-white p-6 rounded-lg shadow-xl">
               <h2 className="mb-2 font-bold text-2xl text-gray-600 text-purple">
-                Author(<strong>{blogDetailObject.author}</strong>) - Published
-                Date:<b>{getFormattedDate(blogDetailObject.date_published)}</b>
+                Author(<strong>{blogItem.author}</strong>) - Published
+                Date:<b>{getFormattedDate(blogItem.date_published)}</b>
               </h2>
-              <p className="text-gray-500">{blogDetailObject.content}</p>
+              <p className="text-gray-500">{blogItem.content}</p>
             </div>
           </div>
         </div>

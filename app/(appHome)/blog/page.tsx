@@ -4,6 +4,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import Card from "@/app/components/card/card";
 import { BlogItem } from "./interfaces";
 import Button from "@/app/components/button/button";
+import {useRouter} from "next/navigation";
 // import BlogItems  from "../../models/BlogItems";
 // import connectMongoDB from "../../libs/mongodb";
 
@@ -33,13 +34,24 @@ import Button from "@/app/components/button/button";
 export default function Blogs() {
   const [blogData, setBlogData] = useState<BlogItem[]>([]);
   const [isLoading, setLoader] = useState<boolean>(true);
+  const router = useRouter();
   // const initialized = useRef(false)
   //to handle twice calling of use effect
   useEffect(() => {
+    const email = localStorage.getItem("email");
+    const token = localStorage.getItem("token");
+    if (!email && !token) {
+      router.push("/signin");
+    }
     const fetchBlogData = async () => {
       try {
         setLoader(true);
-        const response = await fetch("/api/blog");
+        const headers:any = {
+          "Content-Type":"application/json",
+          "Accept": "application/json",
+          "token":localStorage.getItem("token"),
+        }
+        const response = await fetch("/api/blog",{...headers});
         if (response.ok) {
           const data = await response.json();
           setBlogData(data.blogItems);
@@ -64,7 +76,7 @@ export default function Blogs() {
   if (isLoading) {
     return <p>Loading...</p>;
   }
-console.log("checking---",blogData);
+console.log("checking blogData---",blogData);
   return (
     <div>
       <div className="inline-flex">
@@ -106,3 +118,48 @@ console.log("checking---",blogData);
 //     // Pass post data to the page via props
 //     return { props: { post } }
 //   }
+
+
+//To revalidate tag we can use client side components
+// It is possible to revalidate a tag from within the client.
+
+// Create a server component that revalidates the tag:
+
+// "use server";
+
+// import { revalidateTag as revalidate } from "next/cache";
+
+// async function revalidateTag(name) {
+//     revalidate(name);
+// }
+
+// export default revalidateTag;
+// Then create a client component that triggers that tag revalidation function
+
+// "use client";
+
+// import React from "react";
+
+// import revalidateTag from "./revalidateTag";
+
+// function CurrencySelector() {
+//     function setCurrency() {
+//         // Set the currency in the cookies or state
+//         // And revalidate the prices
+//         revalidateTag("calculatePrices");
+//     }
+
+//     return <button onClick={() => setCurrency("EUR")}>Set currency to EUR</button>;
+// }
+
+// export default CurrencySelector;
+// The tag was defined in a fetch function
+
+// const response = await fetch(`blablabla/api/calculate-prices`, {
+//    method: "POST",
+//    headers: {
+//       "Content-Type": "application/json",
+//    },
+//    body: JSON.stringify({ dateStart: utcDateStart, dateEnd: utcDateEnd, propertyID, currency }),
+//    next: { tags: ["calculatePrices"] },
+// });

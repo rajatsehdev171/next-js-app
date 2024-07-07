@@ -1,6 +1,6 @@
 // components/BlogForm.tsx
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { BlogItem } from '@/app/(appHome)/blog/interfaces';
 
@@ -20,6 +20,14 @@ const BlogForm: React.FC<BlogFormProps> = ({ post }) => {
   );
   const [content, setContent] = useState(post?.content || "");
   const router = useRouter();
+
+  useEffect(()=> {
+    const email = localStorage.getItem("email");
+    const token = localStorage.getItem("token");
+    if (!email && !token) {
+      router.push("/signin");
+    }
+  },[])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
