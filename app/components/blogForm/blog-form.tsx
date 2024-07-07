@@ -68,26 +68,26 @@ const BlogForm: React.FC<BlogFormProps> = ({ post }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4">
+    <form onSubmit={handleSubmit} className="w-9/12 mx-auto p-4">
       <div className="mb-4">
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-lavendar-700 text-sm font-bold mb-2"
           htmlFor="author"
         >
-          Author
+          Publisher
         </label>
         <input
           id="author"
           type="text"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-lavendar-700 leading-tight focus:outline-none focus:shadow-outline"
           required
         />
       </div>
       <div className="mb-4">
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-lavendar-700 text-sm font-bold mb-2"
           htmlFor="title"
         >
           Title
@@ -97,13 +97,13 @@ const BlogForm: React.FC<BlogFormProps> = ({ post }) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-lavendar-700 leading-tight focus:outline-none focus:shadow-outline"
           required
         />
       </div>
       <div className="mb-4">
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-lavendar-700 text-sm font-bold mb-2"
           htmlFor="datePublished"
         >
           Date Published
@@ -113,13 +113,13 @@ const BlogForm: React.FC<BlogFormProps> = ({ post }) => {
           type="date"
           value={datePublished}
           onChange={(e) => setDatePublished(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-lavendar-700 leading-tight focus:outline-none focus:shadow-outline"
           required
         />
       </div>
       <div className="mb-4">
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-lavendar-700 text-sm font-bold mb-2"
           htmlFor="content"
         >
           Content
@@ -128,16 +128,16 @@ const BlogForm: React.FC<BlogFormProps> = ({ post }) => {
           id="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-lavendar-700 leading-tight focus:outline-none focus:shadow-outline"
           required
         />
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex float-right">
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          {post ? "Update" : "Create"}
+          {post ? "Update Blog" : "Add Blog"}
         </button>
       </div>
     </form>

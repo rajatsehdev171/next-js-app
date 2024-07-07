@@ -5,6 +5,7 @@ import Button from '../button/button';
 import { BlogItem } from '@/app/(appHome)/blog/interfaces';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {getFormattedDate} from '@/app/libs/date-format-util';
 
 interface CardProps {
   blog: BlogItem;
@@ -38,7 +39,7 @@ const Card: React.FC<CardProps> = ({ blog, deleteFunc }) => {
         {/* <img src="" alt="Avatar" style={{width:'100%'}} /> */}
         <div className="card-text-container mt-2">
           <h3>{blog.author}</h3>
-          <h5>Author(<strong>{blog.author}</strong>) - Published Date:<b>{blog.date_published}</b></h5>
+          <h5>Author(<strong>{blog.author}</strong>) - Published Date:<b>{getFormattedDate(blog.date_published)}</b></h5>
           <p>{trimChars(blog.content)}</p>
         </div>
         <div className="relative bottom-0 left-0">

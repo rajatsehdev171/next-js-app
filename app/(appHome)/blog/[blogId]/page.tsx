@@ -1,6 +1,7 @@
 import React from "react";
 import NotFound from "./not-found";
 import { BlogItem } from "../interfaces";
+import { getFormattedDate } from "@/app/libs/date-format-util";
 
 // server side rendered blogs example
 async function getBlogById(blogId:string) {
@@ -41,7 +42,7 @@ async function BlogIdPage({ params }: { params: {blogId:string}}){
             <div className="bg-white p-6 rounded-lg shadow-xl">
               <h2 className="mb-2 font-bold text-2xl text-gray-600 text-purple">
                 Author(<strong>{blogDetailObject.author}</strong>) - Published
-                Date:<b>{blogDetailObject.date_published}</b>
+                Date:<b>{getFormattedDate(blogDetailObject.date_published)}</b>
               </h2>
               <p className="text-gray-500">{blogDetailObject.content}</p>
             </div>
