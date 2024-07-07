@@ -1,6 +1,5 @@
 import React from "react";
 import NotFound from "./not-found";
-import Link from "next/link";
 import { BlogItem } from "../interfaces";
 
 // server side rendered blogs example
@@ -23,12 +22,12 @@ async function getBlogById(blogId:string) {
   return  data.blog;
 }
 
-async function BlogIdPage({ params }: any){
+async function BlogIdPage({ params }: { params: {blogId:string}}){
   // const blogs: any = await getData();
   // const blogDetailObject = blogs.find(
   //   (blog: any) => blog.id == parseInt(params.blogId)
   // );
-  const blogDetailObject:BlogItem = await getBlogById(params.blogId) as any;
+  const blogDetailObject:BlogItem = await getBlogById(params.blogId);
 
   if (blogDetailObject) {
     return (

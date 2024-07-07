@@ -62,7 +62,6 @@ const BlogForm: React.FC<BlogFormProps> = ({ post }) => {
         }
       }
       router.push("/blog"); // Redirect to the main blog page or another appropriate page
-      router.refresh();
     } catch (error) {
       console.error(error);
     }

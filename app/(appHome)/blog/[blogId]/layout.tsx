@@ -1,6 +1,8 @@
 import React from 'react';
 
-function BlogDetailLayout({children}:any) {
+function BlogDetailLayout({children}: Readonly<{
+    children: React.ReactNode,params:any
+  }>) {
     return (<div className= 'blog-detail-page-layout'>
                 {children}
             </div>);

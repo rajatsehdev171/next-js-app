@@ -6,8 +6,12 @@ import { BlogItem } from '@/app/(appHome)/blog/interfaces';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+interface CardProps {
+  blog: BlogItem;
+  deleteFunc: Function;
+}
 
-function Card({blog}:any) {
+const Card: React.FC<CardProps> = ({ blog, deleteFunc }) => {
   const router = useRouter();
    const trimChars = (contentStr:string) => {
     return `${contentStr.length>25?contentStr.substring(0, 50):''}...`
@@ -20,7 +24,7 @@ function Card({blog}:any) {
         next: { revalidate: 0 },
       });
       if (response.ok) {
-        router.refresh()
+        deleteFunc(id);
       } else {
         throw new Error("Failed to delete blog post");
       }
