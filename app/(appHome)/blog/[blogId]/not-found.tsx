@@ -2,7 +2,7 @@ import React from 'react';
 
 function NotFound(props:any) {
     return (
-        <main>BLOGDetailPage with above Id  Not Found...</main>
+        <div>BLOGDetailPage with above Id  Not Found...</div>
     );
 }
 

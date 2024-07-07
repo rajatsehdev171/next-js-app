@@ -1,7 +1,6 @@
 import React from 'react';
 
-function BlogDetailLayout({children,blogId}: { children: React.ReactNode, blogId:string }) {
-    console.log("checking chilren of layout detail page", blogId)
+function BlogDetailLayout({children}:any) {
     return (<div className= 'blog-detail-page-layout'>
                 {children}
             </div>);
